@@ -15,7 +15,8 @@ models/plots/
 mlflow_tracking/
 !mlflow_tracking/.gitkeep
 data/raw/
-data/processed/
 !data/raw/.gitkeep
-!data/processed/.gitkeep
-.DS_Store
+
+# Allow processed features file
+!data/processed/
+!data/processed/features.csv
