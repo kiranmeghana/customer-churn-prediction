@@ -189,7 +189,15 @@ def predict_single(customer: CustomerFeatures) -> PredictionResponse:
         timestamp=datetime.utcnow().isoformat(),
     )
 
-
+@app.get("/", tags=["Home"])
+def home():
+    return {
+        "project": "Production-Grade Customer Churn Prediction Platform",
+        "status": "running",
+        "docs": "/docs",
+        "health": "/health",
+        "version": "1.0.0"
+    }
 # ── Endpoints ──────────────────────────────────────────────────────────────
 @app.get("/health", tags=["Health"])
 def health_check():
