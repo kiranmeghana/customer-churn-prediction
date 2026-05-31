@@ -23,7 +23,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-API_BASE = os.environ.get("API_BASE_URL", "http://localhost:8000")
+API_BASE = "https://customer-churn-prediction-5fgm.onrender.com"
 
 # ── Custom CSS ─────────────────────────────────────────────────────────────
 st.markdown("""
