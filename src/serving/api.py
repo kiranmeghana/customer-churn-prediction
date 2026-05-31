@@ -198,6 +198,8 @@ def home():
         "health": "/health",
         "version": "1.0.0"
     }
+
+
 # ── Endpoints ──────────────────────────────────────────────────────────────
 @app.get("/health", tags=["Health"])
 def health_check():
