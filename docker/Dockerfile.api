@@ -1,0 +1,24 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc g++ curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy source code
+COPY src/ ./src/
+COPY config.yaml .
+
+# Run the pipeline if models don't exist, then start API
+COPY scripts/ ./scripts/
+COPY data/ ./data/
+
+ENV PYTHONPATH=/app
+
+CMD ["uvicorn", "src.serving.api:app", "--host", "0.0.0.0", "--port", "8000"]

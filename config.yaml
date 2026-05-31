@@ -1,0 +1,63 @@
+data:
+  raw_path: "data/raw/customers.csv"
+  processed_path: "data/processed/features.csv"
+  test_size: 0.2
+  random_state: 42
+
+features:
+  target_column: "churn"
+  numeric_features:
+    - tenure
+    - monthly_charges
+    - total_charges
+    - num_products
+    - num_support_tickets
+    - avg_call_duration
+    - days_since_last_contact
+  categorical_features:
+    - contract_type
+    - payment_method
+    - internet_service
+    - gender
+    - senior_citizen
+  boolean_features:
+    - has_tech_support
+    - has_streaming
+    - has_online_security
+    - has_online_backup
+    - paperless_billing
+
+training:
+  models:
+    xgboost:
+      n_estimators: 300
+      max_depth: 6
+      learning_rate: 0.05
+      subsample: 0.8
+      colsample_bytree: 0.8
+      eval_metric: "logloss"
+      random_state: 42
+    lightgbm:
+      n_estimators: 300
+      max_depth: 6
+      learning_rate: 0.05
+      subsample: 0.8
+      colsample_bytree: 0.8
+      random_state: 42
+  cv_folds: 5
+  scoring_metric: "roc_auc"
+  threshold: 0.5
+
+mlflow:
+  tracking_uri: "mlflow_tracking"
+  experiment_name: "churn_prediction"
+
+serving:
+  host: "0.0.0.0"
+  port: 8000
+  model_path: "models/best_model.pkl"
+  preprocessor_path: "models/preprocessor.pkl"
+
+monitoring:
+  drift_threshold: 0.1
+  alert_accuracy_drop: 0.05
